@@ -6,34 +6,36 @@ declare global {
   type TransacaoStatus =
     | "Paga"
     | "Recusada pela operadora de cartão"
-    | "Aguardando pagamento"
+    | "Agurdando pagamento"
     | "Estornada";
 
   interface TransacaoAPI {
     Nome: string;
     ID: number;
     Data: string;
-    Status: string;
+    Status: TransacaoStatus;
     Email: string;
     ["Valor (R$)"]: string;
     ["Forma de Pagamento"]: TransacaoPagamento;
     ["Cliente Novo"]: number;
   }
+
+  interface Transacao {
+    nome: string;
+    id: number;
+    data: Date;
+    status: TransacaoStatus;
+    email: string;
+    moeda: string;
+    valor: number | null;
+    pagamento: TransacaoPagamento;
+    novo: boolean;
+  }
 }
 
-interface Transacao {
-  nome: string;
-  id: number;
-  data: string;
-  status: TransacaoStatus;
-  email: string;
-  moeda: string;
-  valor: number | null;
-  pagamento: TransacaoPagamento;
-  novo: boolean;
-}
-
-export default function normalizarTransacao(transacao: TransacaoAPI) {
+export default function normalizarTransacao(
+  transacao: TransacaoAPI
+): Transacao {
   return {
     nome: transacao.Nome,
     id: Number(transacao.ID),

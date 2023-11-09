@@ -7,7 +7,25 @@ async function handleData() {
   );
   if (!data) return;
   const transacoes = data.map(normalizarTransacao);
-  console.log(transacoes);
+  preencheTabela(transacoes);
+}
+
+function preencherEstatisticas(transacoes: Transacao[]): void {}
+
+function preencheTabela(transacoes: Transacao[]): void {
+  const tabela = document.querySelector("#transacoes tbody");
+  if (!tabela) return;
+  transacoes.forEach((item) => {
+    tabela.innerHTML += `
+    <tr>
+    <td>${item.nome}</td>
+    <td>${item.email}</td>
+    <td>R$ ${item.moeda}</td>
+    <td>${item.pagamento}</td>
+    <td>${item.status}</td>
+    </tr>
+    `;
+  });
 }
 
 handleData();
