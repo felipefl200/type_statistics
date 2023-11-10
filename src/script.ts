@@ -35,6 +35,10 @@ function preencherEstatisticas(transacoes: Transacao[]): void {
       currency: "BRL",
     });
   }
+  const diaElement = document.querySelector<HTMLElement>("#dia span");
+  if (diaElement) {
+    diaElement.innerText = data.melhorDia[0];
+  }
 }
 
 function preencheTabela(transacoes: Transacao[]): void {
